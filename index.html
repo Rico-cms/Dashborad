@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Stratégique - Center Parcs</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        .card { background-color: white; border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); transition: transform 0.2s; }
+        .card:hover { transform: translateY(-2px); }
+        .trend-up { color: #10B981; }
+        .trend-down { color: #EF4444; }
+        .trend-neutral { color: #6B7280; }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Navbar -->
+    <nav class="bg-gray-900 text-white p-4 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <i class="fas fa-tree text-green-400 text-2xl"></i>
+                <div>
+                    <h1 class="text-xl font-bold tracking-wide">DASHBOARD PERFORMANCE</h1>
+                    <p class="text-xs text-gray-400">Rapport pour Emrick | Période 2019-2020</p>
+                </div>
+            </div>
+            <div class="text-right hidden md:block">
+                <div class="text-xs text-gray-400">Objectif ROI</div>
+                <div class="font-bold text-green-400">4.0 (1,6 M€)</div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto p-6 space-y-6">
+
+        <!-- Executive Summary : Le Paradoxe -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <!-- Sessions -->
+            <div class="card p-5 border-l-4 border-blue-500">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-xs font-bold text-gray-500 uppercase">Trafic (Sessions)</p>
+                        <h3 class="text-2xl font-bold mt-1">23,5 M</h3>
+                    </div>
+                    <div class="p-2 bg-blue-100 rounded-full text-blue-600"><i class="fas fa-users"></i></div>
+                </div>
+                <div class="mt-4 flex items-center text-sm">
+                    <span class="trend-up font-bold flex items-center"><i class="fas fa-arrow-up mr-1"></i> +5.3%</span>
+                    <span class="text-gray-400 ml-2">vs N-1</span>
+                </div>
+                <p class="text-xs text-gray-400 mt-2">Haut de tunnel performant</p>
+            </div>
+
+            <!-- Transactions -->
+            <div class="card p-5 border-l-4 border-green-500">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-xs font-bold text-gray-500 uppercase">Transactions</p>
+                        <h3 class="text-2xl font-bold mt-1">134 590</h3>
+                    </div>
+                    <div class="p-2 bg-green-100 rounded-full text-green-600"><i class="fas fa-shopping-cart"></i></div>
+                </div>
+                <div class="mt-4 flex items-center text-sm">
+                    <span class="trend-up font-bold flex items-center"><i class="fas fa-arrow-up mr-1"></i> +3.6%</span>
+                    <span class="text-gray-400 ml-2">vs N-1</span>
+                </div>
+                <p class="text-xs text-gray-400 mt-2">Conversion stable (0.57%)</p>
+            </div>
+
+            <!-- Revenue -->
+            <div class="card p-5 border-l-4 border-red-500">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-xs font-bold text-gray-500 uppercase">Chiffre d'Affaires</p>
+                        <h3 class="text-2xl font-bold mt-1">89,0 M€</h3>
+                    </div>
+                    <div class="p-2 bg-red-100 rounded-full text-red-600"><i class="fas fa-euro-sign"></i></div>
+                </div>
+                <div class="mt-4 flex items-center text-sm">
+                    <span class="trend-down font-bold flex items-center"><i class="fas fa-arrow-down mr-1"></i> -7.5%</span>
+                    <span class="text-gray-400 ml-2">vs N-1</span>
+                </div>
+                <p class="text-xs text-gray-400 mt-2">Alerte : baisse de valeur</p>
+            </div>
+
+            <!-- Panier Moyen -->
+            <div class="card p-5 border-l-4 border-orange-500">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-xs font-bold text-gray-500 uppercase">Panier Moyen (AOV)</p>
+                        <h3 class="text-2xl font-bold mt-1">661 €</h3>
+                    </div>
+                    <div class="p-2 bg-orange-100 rounded-full text-orange-600"><i class="fas fa-tag"></i></div>
+                </div>
+                <div class="mt-4 flex items-center text-sm">
+                    <span class="trend-down font-bold flex items-center"><i class="fas fa-arrow-down mr-1"></i> -11%</span>
+                    <span class="text-gray-400 ml-2">vs N-1</span>
+                </div>
+                <p class="text-xs text-gray-400 mt-2">Cause principale du recul CA</p>
+            </div>
+        </div>
+
+        <!-- Section Graphiques Principaux -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- Graphique 1 : Le Décrochage Volume / Valeur -->
+            <div class="card p-6 lg:col-span-2">
+                <h4 class="text-lg font-bold mb-4 text-gray-700 flex items-center">
+                    <i class="fas fa-chart-line mr-2 text-indigo-600"></i> Le Décrochage : Volume vs Valeur
+                </h4>
+                <div class="relative h-72">
+                    <canvas id="mainChart"></canvas>
+                </div>
+                <div class="mt-4 bg-yellow-50 p-3 rounded border border-yellow-200 text-sm text-yellow-800">
+                    <i class="fas fa-lightbulb mr-1"></i> <strong>Analyse :</strong> Nous vendons plus (+3.6% transactions) mais moins cher. La stratégie d'acquisition fonctionne, mais la monétisation souffre (promos, séjours courts).
+                </div>
+            </div>
+
+            <!-- Graphique 2 : Objectif ROI -->
+            <div class="card p-6 flex flex-col justify-between">
+                <div>
+                    <h4 class="text-lg font-bold mb-2 text-gray-700">Preuve d'Atteinte ROI</h4>
+                    <p class="text-sm text-gray-500 mb-6">Poids de l'objectif "Landes de Gascogne" dans le CA Digital France.</p>
+                </div>
+                
+                <div class="relative h-48 flex justify-center items-center">
+                    <canvas id="roiChart"></canvas>
+                </div>
+
+                <div class="mt-4 text-center">
+                    <p class="text-3xl font-bold text-green-600">1.9%</p>
+                    <p class="text-xs text-gray-500">Part du CA France requise pour atteindre l'objectif</p>
+                </div>
+                <div class="mt-2 text-xs text-center text-gray-400 border-t pt-2">
+                    Objectif : 1,6 M€ / Réalité France : 83 M€
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Détails : Parcs & Géographie -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            
+            <!-- Tops & Flops Parcs -->
+            <div class="card p-6">
+                <h4 class="text-lg font-bold mb-4 text-gray-700">Performance par Parc (Croissance CA)</h4>
+                <div class="relative h-64">
+                    <canvas id="parkChart"></canvas>
+                </div>
+                <div class="mt-4 text-sm text-gray-600">
+                    <p><i class="fas fa-check-circle text-green-500"></i> <strong>Gagnants :</strong> Les Bois-Francs (+60%) & Trois Forêts (+25%) valident l'appétence pour l'offre "Nature Immersive".</p>
+                    <p class="mt-2"><i class="fas fa-exclamation-circle text-red-500"></i> <strong>A surveiller :</strong> Bois aux Daims & Villages Nature souffrent (Positionnement prix ou promesse floue ?).</p>
+                </div>
+            </div>
+
+            <!-- Géographie -->
+            <div class="card p-6">
+                <h4 class="text-lg font-bold mb-4 text-gray-700">Répartition Géographique & Potentiel</h4>
+                
+                <div class="overflow-x-auto">
+                    <table class="min-w-full text-sm">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="p-3 text-left">Pays</th>
+                                <th class="p-3 text-right">Part du CA</th>
+                                <th class="p-3 text-right">Taux de Conv.</th>
+                                <th class="p-3 text-center">Tendance Vol.</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr>
+                                <td class="p-3 font-semibold text-indigo-900"><i class="fas fa-flag text-blue-600 mr-2"></i> France</td>
+                                <td class="p-3 text-right font-bold">94%</td>
+                                <td class="p-3 text-right">0.58%</td>
+                                <td class="p-3 text-center"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">+6%</span></td>
+                            </tr>
+                            <tr>
+                                <td class="p-3"><i class="fas fa-flag text-red-500 mr-2"></i> Suisse</td>
+                                <td class="p-3 text-right text-gray-500">< 2%</td>
+                                <td class="p-3 text-right font-bold text-green-600">0.83%</td>
+                                <td class="p-3 text-center"><span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs">-16%</span></td>
+                            </tr>
+                            <tr>
+                                <td class="p-3"><i class="fas fa-flag text-blue-300 mr-2"></i> Luxembourg</td>
+                                <td class="p-3 text-right text-gray-500">< 2%</td>
+                                <td class="p-3 text-right font-bold text-green-600">1.08%</td>
+                                <td class="p-3 text-center"><span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs">-8%</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 bg-blue-50 p-3 rounded border border-blue-200 text-sm text-blue-800">
+                    <i class="fas fa-info-circle mr-1"></i> <strong>Opportunité :</strong> Réactiver Suisse & Luxembourg. Ils convertissent 2x mieux que la France mais le volume baisse.
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommandations Footer -->
+        <div class="bg-gray-800 text-white rounded-lg p-6 shadow-lg">
+            <h3 class="text-xl font-bold mb-4 border-b border-gray-600 pb-2"><i class="fas fa-chess-knight mr-2"></i> Plan de Bataille pour Emrick</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+                <div>
+                    <h5 class="font-bold text-green-400 mb-2">1. Sécuriser la Valeur</h5>
+                    <p class="text-gray-300">Le trafic est là. Cessez la promo de masse. Activez l'Upsell (Cottages premium, Activités) systématiquement dans le tunnel pour remonter le Panier Moyen vers 700€.</p>
+                </div>
+                <div>
+                    <h5 class="font-bold text-blue-400 mb-2">2. Ciblage Chirurgical</h5>
+                    <p class="text-gray-300">Investissez sur les profils "Nature/Eco" qui cartonnent aux Trois-Forêts pour remplir les Landes de Gascogne. Réactivez les audiences Suisse/Luxembourg.</p>
+                </div>
+                <div>
+                    <h5 class="font-bold text-purple-400 mb-2">3. Pilotage ROI</h5>
+                    <p class="text-gray-300">L'objectif est atteint mathématiquement (1.9% du CA suffit). Passez d'un pilotage global à un pilotage par levier pour optimiser la marge.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Script Chart.js -->
+    <script>
+        // --- Chart 1: Global Trends (Mixed) ---
+        const ctxMain = document.getElementById('mainChart').getContext('2d');
+        new Chart(ctxMain, {
+            type: 'bar',
+            data: {
+                labels: ['2018-2019', '2019-2020'],
+                datasets: [
+                    {
+                        label: 'Chiffre d\'Affaires (M€)',
+                        data: [96.28, 89.03],
+                        backgroundColor: 'rgba(239, 68, 68, 0.7)', // Red for drop
+                        order: 2,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'Transactions (k)',
+                        data: [129.8, 134.6],
+                        borderColor: 'rgba(16, 185, 129, 1)', // Green for rise
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        type: 'line',
+                        borderWidth: 3,
+                        pointRadius: 5,
+                        order: 1,
+                        yAxisID: 'y1'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    legend: { position: 'top' },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) label += ': ';
+                                if (context.parsed.y !== null) label += context.parsed.y;
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: { display: true, text: 'Revenus (M€)' }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: { display: true, text: 'Transactions (x1000)' },
+                        grid: { drawOnChartArea: false }
+                    }
+                }
+            }
+        });
+
+        // --- Chart 2: ROI Reality Check (Doughnut) ---
+        const ctxRoi = document.getElementById('roiChart').getContext('2d');
+        new Chart(ctxRoi, {
+            type: 'doughnut',
+            data: {
+                labels: ['CA Digital France (Existant)', 'Objectif Landes (1.6M€)'],
+                datasets: [{
+                    data: [81.44, 1.6], // 83.04 - 1.6 approx
+                    backgroundColor: ['#E5E7EB', '#10B981'], // Gray vs Green
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '70%',
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.parsed + ' M€';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // --- Chart 3: Park Winners & Losers (Horizontal Bar) ---
+        const ctxPark = document.getElementById('parkChart').getContext('2d');
+        new Chart(ctxPark, {
+            type: 'bar',
+            indexAxis: 'y',
+            data: {
+                labels: ['Les Bois-Francs', 'Les Trois Forêts', 'Moyenne Globale', 'Villages Nature', 'Le Bois aux Daims'],
+                datasets: [{
+                    label: 'Croissance CA vs N-1 (%)',
+                    data: [60, 25, -7.5, -20, -32], // Approx values based on provided text
+                    backgroundColor: [
+                        '#10B981', // Green
+                        '#34D399', // Light Green
+                        '#6B7280', // Gray (Avg)
+                        '#F87171', // Red
+                        '#EF4444'  // Dark Red
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        grid: { color: '#E5E7EB' },
+                        ticks: { callback: function(value) { return value + "%" } }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
